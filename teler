@@ -1,0 +1,37 @@
+// Importazione della libreria Telegraf per lo sviluppo di bot Telegram in Node.js
+const { Telegraf } = require('telegraf');
+
+// Creazione di un'istanza del bot con il token fornito da BotFather su Telegram
+const bot = new Telegraf('IL_TUO_TOKEN');
+
+// Risposta a un comando /start
+bot.start((ctx) => {
+    // Invio di un messaggio di benvenuto
+    ctx.reply('Benvenuto! Sono il tuo assistente Telegram.');
+});
+
+// Risposta a un comando /help
+bot.help((ctx) => {
+    // Invio di istruzioni o informazioni di aiuto
+    ctx.reply('Posso aiutarti con diverse cose. Prova a chiedermi qualcosa!');
+});
+
+// Gestione dei messaggi di testo
+bot.on('text', (ctx) => {
+    // Ricezione del testo inviato dall'utente
+    const userText = ctx.message.text;
+
+    // Risposta personalizzata in base al testo ricevuto
+    ctx.reply(`Hai scritto: ${userText}`);
+});
+
+// Gestione di eventuali errori
+bot.catch((err, ctx) => {
+    console.error(`Errore nel bot: ${err}`);
+    ctx.reply('Si è verificato un errore. Riprova più tardi.');
+});
+
+// Avvio del bot
+bot.launch().then(() => {
+    console.log('Il bot è in ascolto...');
+});
